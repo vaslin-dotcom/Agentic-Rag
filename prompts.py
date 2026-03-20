@@ -83,20 +83,20 @@ Instructions:
 Answer:
 """
 
-# prompts.py
 hallucination_checker_prompt_strict = """
 You are a hallucination checker for a Mahabharata question answering system.
 
-Retrieved source passages (from vector store — exact text):
+Retrieved source passages (from vector store):
 {chunks}
 
 Generated answer:
 {answer}
 
-Check every claim in the answer against the source passages.
-- Answer 'no' if every claim is supported by the passages.
-- Answer 'yes' if any claim is NOT found in or contradicts the passages.
-Be strict — specific facts must be traceable to the passages.
+Check the answer against the source passages.
+- Answer 'no' if the answer is broadly consistent with the passages.
+- Answer 'yes' ONLY if the answer contains facts that directly CONTRADICT the passages or introduces completely new characters/events not mentioned anywhere in the passages.
+- Minor elaboration or connecting sentences between facts are acceptable.
+- Do not penalize for reasonable inferences from the text.
 """
 
 hallucination_checker_prompt_lenient = """
@@ -145,4 +145,47 @@ Best retrieved chunks so far:
 and previously the drafted answer:{answer}
 
 Answer:
+"""
+
+planner_prompt = """
+You are a planner agent for a Mahabharata question answering system.
+
+Received query: {question}
+
+Your job:
+1. If the question is simple and self-contained — return it as a single question with mode 'parallel'.
+2. If the question is compound or complex — split it into the smallest independent sub-questions needed to answer it fully.
+3. Choose execution mode:
+   - 'sequential' — if answering one question requires the answer from a previous question
+   - 'parallel'   — if all sub-questions are independent of each other
+
+Rules:
+- Do not over-split. A question about one character with multiple aspects is still one question.
+- Do not under-split. A comparison between two things needs at least two sub-questions.
+- Each sub-question must be self-contained and answerable on its own.
+- Maximum 4 sub-questions.
+
+Examples:
+- "Who is Karna?" → single question, parallel
+- "Compare Karna and Arjuna as warriors" → two questions (Karna's qualities, Arjuna's qualities), parallel
+- "Who killed Abhimanyu and why did they do it?" → sequential (need to know who first, then why)
+"""
+
+final_generation_prompt = """
+You are a synthesis agent for a Mahabharata question answering system.
+
+Original question: {original_question}
+
+Sub-answers retrieved:
+{responses}
+
+Your job:
+- Read all sub-answers carefully.
+- Synthesize them into one coherent, well-structured final answer.
+- Do not repeat the same information multiple times.
+- If sub-answers contradict each other, note the contradiction.
+- Write in clear prose — no bullet points unless comparing multiple things.
+- Stay grounded in what the sub-answers say. Do not add outside knowledge.
+
+Final answer:
 """

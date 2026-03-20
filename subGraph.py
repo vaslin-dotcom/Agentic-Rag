@@ -39,7 +39,7 @@ if __name__=='__main__':
     # with open('subgraph.png', 'wb') as f:
     #     f.write(img)
     # print("saved to subgraph.png")
-    qn='How do Western scholars interpret the Bhagavad Gita philosophically?'
+    qn='Tell about the cast descrimination in Mahabharata'
     result = react.invoke({
         'original_query': qn,
         'query': qn,

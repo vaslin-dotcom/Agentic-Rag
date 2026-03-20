@@ -1,5 +1,6 @@
-from typing import TypedDict,List,Literal,Optional
+from typing import TypedDict,List,Literal,Optional,Annotated
 from pydantic import BaseModel,Field
+from operator import concat
 
 class reactState(TypedDict):
     query:str
@@ -36,3 +37,15 @@ class quality_checker(BaseModel):
     quality:Literal['yes','no']=Field(description='Check if the chunk fully answers the query')
     new_query: str = Field(default='', description='If quality is no, write the missing part as a new query. If quality is yes, leave empty.')
 
+class plannerOutput(BaseModel):
+    execution_mode:Literal['sequential','parallel']=Field(description="Mode of execution for the query")
+    questions:List[str]=Field(description="list of queries from the recieved query")
+
+class plannerState(TypedDict):
+    execution_mode:str
+    questions:List[str]
+    responses:Annotated[List[str],concat]
+    final_response:str
+    flow:Annotated[List[dict],concat]
+    original_question:str
+    current_index:int

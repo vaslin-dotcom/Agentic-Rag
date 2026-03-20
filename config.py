@@ -9,7 +9,10 @@ NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 GROQ_API_KEY   = os.getenv("GROQ_API_KEY")
 NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
 
-# config.py
+# LANGSMITH
+os.environ["LANGCHAIN_API_KEY"]      = os.getenv("LANGCHAIN_API_KEY")
+os.environ["LANGCHAIN_TRACING_V2"]   = "true"
+os.environ["LANGCHAIN_PROJECT"]      = "Agentic-RAG-Mahabharata"
 
 # PRIMARY — NVIDIA (40 RPM, no RPD limit)
 NVIDIA_BASE_URL        = "https://integrate.api.nvidia.com/v1"
