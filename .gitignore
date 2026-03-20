@@ -1,1 +1,12 @@
+cat > .gitignore << EOF
 .env
+chroma_db/
+db_with_keywords.pkl
+MahabharataOfVyasa-EnglishTranslationByKMGanguli.pdf
+__pycache__/
+*.pyc
+*.pkl
+*.pdf
+*.bin
+*.sqlite3
+EOF
