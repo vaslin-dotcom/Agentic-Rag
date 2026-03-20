@@ -1,0 +1,17 @@
+pypdf
+python-dotenv
+langchain-openai
+langchain_community
+langchain-core
+pydantic
+langchain
+langchain-text-splitters
+rank_bm25
+chromadb 
+sentence-transformers 
+langchain-huggingface 
+langchain-chroma
+tqdm
+duckduckgo-search
+ddgs
+grandalf
