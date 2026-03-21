@@ -23,7 +23,9 @@ AgenticRAG=mainGraph.compile()
 
 if __name__ == '__main__':
     result = AgenticRAG.invoke({
-        'original_question': "Compare how the Mahabharata text describes Karna's death and what modern scholars say about the symbolism of his death",
+        'original_question': """How are Karna, Arjuna and Kunti related to each other 
+and how did this hidden relationship affect their 
+interactions during the war?""",
         'execution_mode': '',
         'questions': [],
         'responses': [],
