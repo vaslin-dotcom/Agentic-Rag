@@ -75,32 +75,7 @@ Chatbot Graph
 
 The core reasoning loop. For every sub-task, it runs:
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                     ReAct Loop                          │
-│                                                         │
-│  think ──► act ──► grade                                │
-│    ▲                  │                                  │
-│    │         relevant │ not relevant                     │
-│    │                  │                                  │
-│    └──────────────────┘                                  │
-│                  │ relevant                              │
-│                  ▼                                       │
-│            generation                                   │
-│                  │                                       │
-│       hallucination check                               │
-│          │            │                                  │
-│    hallucinating   grounded                             │
-│          │            │                                  │
-│          └──► generation                                │
-│                       │                                  │
-│               quality check                             │
-│             │          │                                 │
-│           no            yes                             │
-│             │            │                               │
-│         think          END                              │
-└─────────────────────────────────────────────────────────┘
-```
+![ReAct Subgraph](ReAct.png)
 
 **Nodes:**
 
