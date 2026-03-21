@@ -49,3 +49,19 @@ class plannerState(TypedDict):
     flow:Annotated[List[dict],concat]
     original_question:str
     current_index:int
+
+def keep_last_6(existing:List[dict],new:List[dict])->List[dict]:
+    combined=existing+new
+    return combined[-6:]
+
+class chatState(TypedDict):
+    input:str
+    intent:str
+    history:Annotated[List[dict],keep_last_6]
+    message:str
+    exit:bool
+class intentDetector(BaseModel):
+    intent:Literal['rag','greeting','out_of_scope']=Field(description='Predict the intent of the message ')
+class convo(BaseModel):
+    convo_msg:str=Field(description='Message to reply for the greeting')
+    exit:bool=Field(description="does the user want to exit the chat or continue chatting")

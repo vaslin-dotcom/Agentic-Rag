@@ -6,7 +6,7 @@ from config import (
     THINK_MODEL, THINK_MODEL_ALT,
     GENERATION_MODEL, GENERATION_MODEL_ALT,
     NVIDIA_API_KEY, NVIDIA_BASE_URL,
-    NVIDIA_THINK_MODEL, NVIDIA_GEN_MODEL
+    NVIDIA_THINK_MODEL, NVIDIA_GEN_MODEL,CHAT_MODEL
 )
 
 def _build_llm(model: str, api_key: str, base_url: str):
@@ -58,10 +58,16 @@ class SmartLLM:
 
 
 def get_llm(output_schema=None, mode='think'):
-    time.sleep(1.5)  # 40 RPM = 1 req/1.5s comfortably
+    #time.sleep(1.5)  # 40 RPM = 1 req/1.5s comfortably
 
     is_generation = (mode == 'generation')
+    is_chat = (mode == 'chat')
 
+    if is_chat:
+        llm = _build_llm(CHAT_MODEL, GROQ_API_KEY, GROQ_BASE_URL)
+        if output_schema:
+            return llm.with_structured_output(output_schema, method="function_calling")
+        return llm
     # NVIDIA — primary
     nvidia_model  = NVIDIA_GEN_MODEL   if is_generation else NVIDIA_THINK_MODEL
 

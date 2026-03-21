@@ -18,6 +18,7 @@ os.environ["LANGCHAIN_PROJECT"]      = "Agentic-RAG-Mahabharata"
 NVIDIA_BASE_URL        = "https://integrate.api.nvidia.com/v1"
 NVIDIA_THINK_MODEL = "moonshotai/kimi-k2-instruct-0905"  # 0.83s, best query quality
 NVIDIA_GEN_MODEL   = "moonshotai/kimi-k2-instruct"
+CHAT_MODEL = "llama-3.3-70b-versatile"
 
 # FALLBACK — Groq (30 RPM, 1K RPD — use when NVIDIA hits 40 RPM)
 GROQ_BASE_URL          = "https://api.groq.com/openai/v1"
